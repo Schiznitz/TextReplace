@@ -5,13 +5,27 @@ const program = require("commander");
 const gulp = require("gulp");
 const replace = require("gulp-replace");
 const string2regexp = require("string-to-regexp");
-let app = (source, dest, pattern, target) => {
-    gulp.src(source)
-        .pipe(replace(string2regexp(pattern), target))
-        .pipe(gulp.dest(dest));
+let app = (source, dest, replaces) => {
+    console.log(replaces);
+    let stream = gulp.src(source);
+    for (let i = 0; i < replaces.length; i += 2) {
+        let pattern = string2regexp(replaces[i]);
+        let target = replaces[i + 1];
+        console.log(pattern);
+        console.log(target);
+        stream = stream.pipe(replace(pattern, target));
+    }
+    stream.pipe(gulp.dest(dest));
+    // .pipe(replace(string2regexp(pattern), target))
+    // .pipe(gulp.dest(dest));
 };
 program
-    .usage('<source> <dest> <pattern> <replace>')
+    .arguments('<source> <dest> <replaces...>')
     .action(app);
+program.on('--help', () => {
+    console.log('');
+    console.log('Examples:');
+    console.log('TextReplace /SourceDir/**/*.txt /DestDir /\\w+/ Word /Hello/g World');
+});
 program.parse(process.argv);
 //# sourceMappingURL=app.js.map
