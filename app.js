@@ -6,18 +6,13 @@ const gulp = require("gulp");
 const replace = require("gulp-replace");
 const string2regexp = require("string-to-regexp");
 let app = (source, dest, replaces) => {
-    console.log(replaces);
     let stream = gulp.src(source);
     for (let i = 0; i < replaces.length; i += 2) {
         let pattern = string2regexp(replaces[i]);
         let target = replaces[i + 1];
-        console.log(pattern);
-        console.log(target);
         stream = stream.pipe(replace(pattern, target));
     }
     stream.pipe(gulp.dest(dest));
-    // .pipe(replace(string2regexp(pattern), target))
-    // .pipe(gulp.dest(dest));
 };
 program
     .arguments('<source> <dest> <replaces...>')
