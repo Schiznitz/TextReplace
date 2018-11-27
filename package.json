@@ -6,7 +6,18 @@
   "author": {
     "name": ""
   },
+  "bin": {
+    "TextReplace": "./app.js"
+  },
   "devDependencies": {
+    "@types/gulp": "^4.0.5",
+    "@types/gulp-replace": "0.0.31",
     "@types/node": "^8.0.14"
+  },
+  "dependencies": {
+    "commander": "^2.19.0",
+    "gulp": "^3.9.1",
+    "gulp-replace": "^1.0.0",
+    "string-to-regexp": "^0.1.0"
   }
 }
